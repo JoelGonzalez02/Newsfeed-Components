@@ -85,6 +85,15 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'New Article',
+    date: 'March 17 2020',
+    firstParagraph: `New paragraph`,
+
+    secondParagraph: `New paragraph`,
+
+    thirdParagraph: `new paragraph`
   }
 ];
 
@@ -93,22 +102,56 @@ const data = [
   <div class="article">
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
-
     {three separate paragraph elements}
-
     <span class='expandButton'></span>
   </div>
-
   Hint: You will need to use createElement more than once here!
-
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
-
   Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
   Step 3: return the entire component.
-
   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
-
 */
+
+function createArticle (title, date, p1, p2, p3) {
+  const article = document.createElement('div');
+  const heading = document.createElement('h2');
+  const postDate = document.createElement('p');
+  const para1 = document.createElement('p');
+  const para2 = document.createElement('p');
+  const para3 = document.createElement('p');
+  const button = document.createElement('span');
+
+  article.classList.add('article');
+  postDate.classList.add('date');
+  button.classList.add('expandButton');
+
+  heading.textContent = title;
+  postDate.textContent = date;
+  para1.textContent = p1;
+  para2.textContent = p2; 
+  para3.textContent = p3;
+  button.textContent = '\u25bc'
+
+
+  article.appendChild(heading);
+  article.appendChild(postDate);
+  article.appendChild(para1);
+  article.appendChild(para2);
+  article.appendChild(para3);
+  article.appendChild(button);
+
+  button.addEventListener('click', () => {
+    article.classList.toggle('article-open')
+  });
+
+  return article;
+
+
+}
+
+const articles = document.querySelector('.articles');
+
+  data.forEach((article) => {
+    articles.appendChild(createArticle(article.title, article.date, article.firstParagraph, article.secondParagraph, article.thirdParagraph));
+  });
